@@ -35,9 +35,12 @@
   .ribbon small{font-size:14px;font-weight:500;opacity:.92;}
   .countdown{position:relative;z-index:2;margin-top:15px;display:flex;align-items:center;justify-content:center;gap:8px;font-weight:700;font-size:13.5px;color:var(--moss);}
   .countdown b{font-family:"Cormorant Garamond";font-weight:600;font-size:25px;color:var(--gold);line-height:1;}
-  .calbtn{position:relative;z-index:2;display:inline-flex;align-items:center;gap:8px;margin-top:16px;cursor:pointer;background:rgba(255,255,255,.7);border:1.5px solid var(--gold-light);color:var(--forest);font-family:"Noto Sans TC";font-weight:700;font-size:13.5px;padding:11px 20px;border-radius:30px;box-shadow:0 4px 12px rgba(39,56,31,.12);transition:.2s;}
+  .hero-btns{position:relative;z-index:2;display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-top:16px;}
+  .calbtn{display:inline-flex;align-items:center;gap:7px;cursor:pointer;background:rgba(255,255,255,.7);border:1.5px solid var(--gold-light);color:var(--forest);font-family:"Noto Sans TC";font-weight:700;font-size:13px;padding:11px 17px;border-radius:30px;box-shadow:0 4px 12px rgba(39,56,31,.12);transition:.2s;}
   .calbtn:active{transform:scale(.97);}
-  .calbtn svg{width:17px;height:17px;stroke:var(--gold);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;}
+  .calbtn svg{width:16px;height:16px;stroke:var(--gold);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;}
+  .calbtn.share{background:linear-gradient(150deg,var(--moss),var(--forest-2));border-color:transparent;color:#fff;}
+  .calbtn.share svg{stroke:var(--cream);}
 
   /* TABS */
   .tabs{position:sticky;top:0;z-index:30;display:flex;gap:8px;padding:14px 18px 12px;background:linear-gradient(var(--paper) 70%,rgba(250,246,234,0));}
@@ -123,6 +126,25 @@
   .hotel .hs{font-size:12px;color:var(--ink-soft);margin-top:2px;}
   .hotel .go{margin-left:auto;color:var(--gold);font-size:13px;font-weight:700;white-space:nowrap;}
 
+  /* ROOMS */
+  .room-note{font-size:12px;color:#86641f;background:rgba(197,160,80,.15);border-radius:10px;padding:9px 12px;margin-bottom:11px;line-height:1.6;}
+  .room-search{position:relative;margin-bottom:11px;}
+  .room-search input{width:100%;font-family:inherit;font-size:14px;color:var(--ink);background:#fff;border:1px solid rgba(92,113,68,.25);border-radius:12px;padding:11px 14px 11px 40px;outline:none;transition:.2s;}
+  .room-search input:focus{border-color:var(--gold-light);box-shadow:0 0 0 3px rgba(197,160,80,.15);}
+  .room-search>svg{position:absolute;left:13px;top:50%;transform:translateY(-50%);width:17px;height:17px;stroke:var(--moss);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;}
+  .room-summary{font-size:12px;color:var(--ink-soft);margin-bottom:10px;}
+  .rlist{display:grid;gap:10px;}
+  .rcard{display:flex;align-items:center;gap:13px;background:linear-gradient(180deg,#fff,var(--paper));border:1px solid rgba(92,113,68,.18);border-radius:14px;padding:13px 15px;box-shadow:0 3px 10px rgba(39,56,31,.05);transition:.2s;}
+  .rcard.hit{border-color:var(--gold);box-shadow:0 0 0 2px var(--gold-light),0 6px 16px rgba(169,128,47,.22);}
+  .rno{flex-shrink:0;min-width:56px;text-align:center;}
+  .rno .num{font-family:"Cormorant Garamond";font-weight:600;font-size:25px;color:var(--gold);line-height:1;}
+  .rno .pend{font-family:"Noto Serif TC";font-weight:700;font-size:14px;color:var(--ink-soft);}
+  .rno .tp{display:inline-block;margin-top:5px;font-size:10.5px;font-weight:700;color:#fff;background:linear-gradient(135deg,var(--moss),var(--forest-2));padding:2px 9px;border-radius:20px;white-space:nowrap;}
+  .rdivider{align-self:stretch;border-left:1px dashed var(--line);}
+  .rguests{flex:1;display:flex;flex-wrap:wrap;gap:6px;}
+  .rguests span{font-size:13px;color:var(--forest);background:rgba(138,155,110,.16);border:1px solid rgba(92,113,68,.2);padding:3px 10px;border-radius:8px;}
+  .rguests span.mark{background:var(--gold);color:#fff;border-color:var(--gold);}
+  .rempty{font-size:13px;color:var(--ink-soft);background:var(--paper-2);border-radius:12px;padding:14px;text-align:center;line-height:1.7;}
   .quote{text-align:center;margin:24px 8px 6px;font-family:"Noto Serif TC";font-weight:500;color:var(--moss);font-size:16px;line-height:1.9;letter-spacing:2px;}
   .quote .em{color:var(--gold);}
 
@@ -156,7 +178,10 @@
     <h1>鳳龍聯合月例會<span class="sub">暨青商家庭旅遊</span></h1>
     <div class="ribbon">8/1 <small>(六)</small> – 8/2 <small>(日)</small></div>
     <div class="countdown" id="countdown"></div>
-    <button id="calBtn" class="calbtn"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>將全部行程加入手機行事曆</button>
+    <div class="hero-btns">
+      <button id="calBtn" class="calbtn"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>加入行事曆</button>
+      <button id="shareBtn" class="calbtn share"><svg viewBox="0 0 24 24"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="M8.6 13.5l6.8 4M15.4 6.5l-6.8 4"/></svg>分享行程</button>
+    </div>
   </header>
 
   <nav class="tabs">
@@ -244,6 +269,16 @@
       <span><span class="ht">承萬尊爵酒店</span><span class="hs">埔里 · CHENG WAN GRAND HOTEL</span></span>
       <span class="go">導航 ›</span>
     </a>
+  </section>
+
+  <section class="section">
+    <div class="s-head"><span class="bar"></span><h2>預留房號</h2></div>
+    <div class="room-search">
+      <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4-4"/></svg>
+      <input id="roomSearch" type="text" placeholder="輸入姓名或房號，快速找到你的房間" autocomplete="off">
+    </div>
+    <div class="room-summary" id="roomSummary"></div>
+    <div class="rlist" id="rlist"></div>
   </section>
 
   <div class="quote">親近自然 <span class="em">·</span> 凝聚情誼<br>共創美好回憶！</div>
@@ -341,6 +376,20 @@
     }catch(e){toast('您的瀏覽器不支援下載，請改用 Chrome / Safari 開啟');}
   });
 
+  /* ---- share itinerary ---- */
+  document.getElementById('shareBtn').addEventListener('click',async()=>{
+    const url=window.location.href;
+    const data={title:'2026 鳳龍聯合月例會暨青商家庭旅遊',text:'8/1–8/2 兩天一夜行程，點開查看完整資訊！',url:url};
+    try{
+      if(navigator.share){ await navigator.share(data); }
+      else{ await navigator.clipboard.writeText(url); toast('已複製本頁連結，可貼到 LINE 或群組分享'); }
+    }catch(e){
+      if(e&&e.name==='AbortError') return;
+      try{ await navigator.clipboard.writeText(url); toast('已複製本頁連結，可貼到 LINE 或群組分享'); }
+      catch(err){ toast('請手動複製網址列分享'); }
+    }
+  });
+
   /* ---- weather (Open-Meteo) ---- */
   const LAT=23.965, LON=120.968;
   const weatherEl=document.getElementById('weather');
@@ -398,6 +447,48 @@
     }catch(e){ await loadCurrent(); }
   }
   loadWeather();
+
+  /* ---- reserved rooms ---- */
+  /* === 房號分配名單：請替換為實際資料 ===
+     no    : 房號，未定時填 '' 會顯示「待公布」
+     type  : 房型（二人房 / 四人房）
+     guests: 入住人員（建議用家庭稱呼或代號，避免公開全名）          */
+  const ROOMS_NOTE='以下為版型範例，正式名單確認後更新。';   /* 名單確定後可改為 '' 隱藏此提示 */
+  const ROOMS=[
+    {no:'', type:'二人房', guests:['範例 · 成員 A','範例 · 眷屬']},
+    {no:'', type:'四人房', guests:['範例 · 成員 B','範例 · 眷屬','範例 · 子女','範例 · 子女']},
+    {no:'', type:'二人房', guests:['範例 · 成員 C','範例 · 成員 D']}
+  ];
+  (function(){
+    const listEl=document.getElementById('rlist');
+    const sumEl=document.getElementById('roomSummary');
+    const searchEl=document.getElementById('roomSearch');
+    function esc(s){return String(s).replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));}
+    if(!ROOMS.length){
+      listEl.innerHTML='<div class="rempty">房號將於入住前公布，敬請留意群組通知。</div>';
+      sumEl.style.display='none'; searchEl.parentElement.style.display='none'; return;
+    }
+    const totalGuests=ROOMS.reduce((n,r)=>n+r.guests.length,0);
+    sumEl.innerHTML=(ROOMS_NOTE?'<div class="room-note">'+esc(ROOMS_NOTE)+'</div>':'')+'共 '+ROOMS.length+' 間 · '+totalGuests+' 人';
+    function render(raw){
+      const q=(raw||'').trim(), ql=q.toLowerCase();
+      listEl.innerHTML=''; let shown=0;
+      ROOMS.forEach(r=>{
+        const match=ql && (r.guests.some(g=>g.toLowerCase().includes(ql)) || (r.no&&r.no.toLowerCase().includes(ql)));
+        if(ql && !match) return;
+        shown++;
+        const card=document.createElement('div');
+        card.className='rcard'+(match?' hit':'');
+        const noHtml=r.no?'<div class="num">'+esc(r.no)+'</div>':'<div class="pend">待公布</div>';
+        const guestsHtml=r.guests.map(g=>{const hit=ql&&g.toLowerCase().includes(ql);return '<span'+(hit?' class="mark"':'')+'>'+esc(g)+'</span>';}).join('');
+        card.innerHTML='<div class="rno">'+noHtml+'<div class="tp">'+esc(r.type)+'</div></div><div class="rdivider"></div><div class="rguests">'+guestsHtml+'</div>';
+        listEl.appendChild(card);
+      });
+      if(ql && shown===0) listEl.innerHTML='<div class="rempty">查無「'+esc(q)+'」，請確認姓名是否正確，或洽幹部協助。</div>';
+    }
+    render('');
+    searchEl.addEventListener('input',()=>render(searchEl.value));
+  })();
 
   /* ---- packing checklist ---- */
   const ITEMS=['身分證 / 健保卡','換洗衣物','盥洗用品','防曬乳','防蚊液','輕便雨衣 / 雨傘','帽子 / 太陽眼鏡','個人常備藥','充電器 / 行動電源','拖鞋','環保杯 / 水壺','相機','孩童用品（如需要）'];
