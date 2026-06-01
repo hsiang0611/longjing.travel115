@@ -9,351 +9,245 @@
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Noto+Sans+TC:wght@400;500;700&family=Noto+Serif+TC:wght@500;700;900&display=swap" rel="stylesheet">
 <style>
   :root{
-    --forest:#27381f;
-    --forest-2:#34492a;
-    --moss:#5c7144;
-    --sage:#8a9b6e;
-    --gold:#a9802f;
-    --gold-light:#c5a050;
-    --cream:#f3ecd9;
-    --paper:#faf6ea;
-    --paper-2:#efe7d2;
-    --ink:#34362a;
-    --ink-soft:#5b5d4d;
-    --sky:#c3d7cd;
+    --forest:#27381f; --forest-2:#34492a; --moss:#5c7144; --sage:#8a9b6e;
+    --gold:#a9802f; --gold-light:#c5a050; --cream:#f3ecd9; --paper:#faf6ea;
+    --paper-2:#efe7d2; --ink:#34362a; --ink-soft:#5b5d4d; --sky:#c3d7cd;
     --line:rgba(92,113,68,.28);
   }
-
   *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+  body{font-family:"Noto Sans TC",sans-serif;color:var(--ink);background:var(--forest);line-height:1.6;-webkit-font-smoothing:antialiased;}
+  .wrap{max-width:480px;margin:0 auto;background:radial-gradient(120% 80% at 50% 0%, #d9e7df 0%, #c3d7cd 18%, var(--paper) 46%, var(--paper) 100%);min-height:100vh;position:relative;overflow:hidden;box-shadow:0 0 60px rgba(0,0,0,.35);}
+  .wrap::after{content:"";position:fixed;inset:0;max-width:480px;margin:0 auto;pointer-events:none;opacity:.04;z-index:50;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");}
 
-  body{
-    font-family:"Noto Sans TC",sans-serif;
-    color:var(--ink);
-    background:var(--forest);
-    line-height:1.6;
-    -webkit-font-smoothing:antialiased;
-  }
-
-  .wrap{
-    max-width:480px;
-    margin:0 auto;
-    background:
-      radial-gradient(120% 80% at 50% 0%, #d9e7df 0%, #c3d7cd 18%, var(--paper) 46%, var(--paper) 100%);
-    min-height:100vh;
-    position:relative;
-    overflow:hidden;
-    box-shadow:0 0 60px rgba(0,0,0,.35);
-  }
-
-  /* subtle grain */
-  .wrap::after{
-    content:"";
-    position:fixed;
-    inset:0;
-    max-width:480px;
-    margin:0 auto;
-    pointer-events:none;
-    opacity:.04;
-    z-index:50;
-    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-  }
-
-  /* ====== HERO ====== */
-  .hero{
-    position:relative;
-    padding:42px 26px 30px;
-    text-align:center;
-    overflow:hidden;
-  }
+  /* HERO */
+  .hero{position:relative;padding:42px 26px 30px;text-align:center;overflow:hidden;}
   .leaf{position:absolute;color:var(--sage);opacity:.35;z-index:0;}
   .leaf.l1{top:8px;left:-18px;width:120px;transform:rotate(-25deg);}
   .leaf.l2{top:0;right:-26px;width:140px;transform:rotate(160deg) scaleX(-1);}
-
-  .org{
-    position:relative;z-index:2;
-    display:flex;align-items:center;justify-content:center;gap:9px;
-    font-family:"Noto Sans TC";font-weight:700;
-    color:var(--forest);font-size:11px;letter-spacing:.5px;
-    margin-bottom:18px;
-  }
-  .org .ji{
-    font-family:"Cormorant Garamond";font-weight:600;font-size:22px;
-    color:var(--moss);font-style:italic;letter-spacing:1px;
-  }
+  .org{position:relative;z-index:2;display:flex;align-items:center;justify-content:center;gap:9px;font-weight:700;color:var(--forest);font-size:11px;letter-spacing:.5px;margin-bottom:18px;}
+  .org .ji{font-family:"Cormorant Garamond";font-weight:600;font-size:22px;color:var(--moss);font-style:italic;letter-spacing:1px;}
   .org .dot{width:4px;height:4px;border-radius:50%;background:var(--gold);}
-
-  .eyebrow{
-    position:relative;z-index:2;
-    font-family:"Cormorant Garamond";
-    font-size:21px;font-weight:600;letter-spacing:6px;
-    color:var(--gold);
-    display:flex;align-items:center;justify-content:center;gap:14px;
-    margin-bottom:6px;
-  }
+  .eyebrow{position:relative;z-index:2;font-family:"Cormorant Garamond";font-size:21px;font-weight:600;letter-spacing:6px;color:var(--gold);display:flex;align-items:center;justify-content:center;gap:14px;margin-bottom:6px;}
   .eyebrow::before,.eyebrow::after{content:"";height:1px;width:30px;background:var(--gold-light);opacity:.7;}
-
-  h1{
-    position:relative;z-index:2;
-    font-family:"Noto Serif TC";font-weight:900;
-    color:var(--forest);
-    font-size:clamp(30px,9vw,40px);
-    line-height:1.18;letter-spacing:2px;
-    text-shadow:0 1px 0 rgba(255,255,255,.4);
-  }
+  h1{position:relative;z-index:2;font-family:"Noto Serif TC";font-weight:900;color:var(--forest);font-size:clamp(30px,9vw,40px);line-height:1.18;letter-spacing:2px;text-shadow:0 1px 0 rgba(255,255,255,.4);}
   h1 .sub{display:block;font-size:.74em;color:var(--moss);margin-top:2px;}
-
-  .ribbon{
-    position:relative;z-index:2;
-    display:inline-block;margin-top:18px;
-    background:linear-gradient(135deg,var(--moss),var(--forest-2));
-    color:var(--cream);
-    font-family:"Noto Serif TC";font-weight:700;
-    font-size:23px;letter-spacing:1px;
-    padding:9px 30px;border-radius:6px;
-    box-shadow:0 8px 18px rgba(39,56,31,.35);
-  }
+  .ribbon{position:relative;z-index:2;display:inline-block;margin-top:18px;background:linear-gradient(135deg,var(--moss),var(--forest-2));color:var(--cream);font-family:"Noto Serif TC";font-weight:700;font-size:23px;letter-spacing:1px;padding:9px 30px;border-radius:6px;box-shadow:0 8px 18px rgba(39,56,31,.35);}
   .ribbon small{font-size:14px;font-weight:500;opacity:.92;}
+  .countdown{position:relative;z-index:2;margin-top:15px;display:flex;align-items:center;justify-content:center;gap:8px;font-weight:700;font-size:13.5px;color:var(--moss);}
+  .countdown b{font-family:"Cormorant Garamond";font-weight:600;font-size:25px;color:var(--gold);line-height:1;}
+  .calbtn{position:relative;z-index:2;display:inline-flex;align-items:center;gap:8px;margin-top:16px;cursor:pointer;background:rgba(255,255,255,.7);border:1.5px solid var(--gold-light);color:var(--forest);font-family:"Noto Sans TC";font-weight:700;font-size:13.5px;padding:11px 20px;border-radius:30px;box-shadow:0 4px 12px rgba(39,56,31,.12);transition:.2s;}
+  .calbtn:active{transform:scale(.97);}
+  .calbtn svg{width:17px;height:17px;stroke:var(--gold);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;}
 
-  /* ====== DAY TABS ====== */
-  .tabs{
-    position:sticky;top:0;z-index:30;
-    display:flex;gap:8px;
-    padding:14px 18px 12px;
-    background:linear-gradient(var(--paper) 70%,rgba(250,246,234,0));
-  }
-  .tab{
-    flex:1;
-    border:none;cursor:pointer;
-    background:var(--paper-2);
-    color:var(--ink-soft);
-    font-family:"Noto Serif TC";font-weight:700;
-    font-size:16px;padding:13px 6px;border-radius:14px;
-    border:1.5px solid transparent;
-    transition:.25s;
-  }
+  /* TABS */
+  .tabs{position:sticky;top:0;z-index:30;display:flex;gap:8px;padding:14px 18px 12px;background:linear-gradient(var(--paper) 70%,rgba(250,246,234,0));}
+  .tab{flex:1;border:none;cursor:pointer;background:var(--paper-2);color:var(--ink-soft);font-family:"Noto Serif TC";font-weight:700;font-size:16px;padding:13px 6px;border-radius:14px;border:1.5px solid transparent;transition:.25s;}
   .tab .d{display:block;font-family:"Cormorant Garamond";font-size:13px;letter-spacing:1px;font-weight:600;color:var(--gold);margin-bottom:2px;}
-  .tab.on{
-    background:linear-gradient(150deg,var(--moss),var(--forest-2));
-    color:#fff;border-color:var(--gold-light);
-    box-shadow:0 8px 16px rgba(39,56,31,.28);
-  }
+  .tab.on{background:linear-gradient(150deg,var(--moss),var(--forest-2));color:#fff;border-color:var(--gold-light);box-shadow:0 8px 16px rgba(39,56,31,.28);}
   .tab.on .d{color:var(--gold-light);}
 
-  /* ====== TIMELINE ====== */
+  /* TIMELINE */
   .panel{padding:6px 20px 8px;display:none;animation:fade .4s ease;}
   .panel.on{display:block;}
   @keyframes fade{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:none;}}
-
   .tl{position:relative;padding-left:8px;}
-  .tl::before{
-    content:"";position:absolute;left:25px;top:14px;bottom:14px;width:2px;
-    background:linear-gradient(var(--sage),var(--line));
-  }
-  .item{
-    position:relative;display:flex;gap:16px;align-items:flex-start;
-    padding:10px 0;
-  }
-  .icon{
-    flex-shrink:0;width:38px;height:38px;border-radius:50%;
-    background:linear-gradient(150deg,var(--moss),var(--forest-2));
-    display:flex;align-items:center;justify-content:center;
-    box-shadow:0 4px 10px rgba(39,56,31,.3);
-    z-index:2;border:2px solid var(--paper);
-  }
+  .tl::before{content:"";position:absolute;left:25px;top:14px;bottom:14px;width:2px;background:linear-gradient(var(--sage),var(--line));}
+  .item{position:relative;display:flex;gap:16px;align-items:flex-start;padding:10px 0;}
+  .icon{flex-shrink:0;width:38px;height:38px;border-radius:50%;background:linear-gradient(150deg,var(--moss),var(--forest-2));display:flex;align-items:center;justify-content:center;box-shadow:0 4px 10px rgba(39,56,31,.3);z-index:2;border:2px solid var(--paper);}
   .icon svg{width:19px;height:19px;stroke:var(--cream);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;}
-  .card{
-    flex:1;
-    background:linear-gradient(180deg,#fff,var(--paper));
-    border:1px solid rgba(92,113,68,.18);
-    border-radius:14px;padding:11px 15px;
-    box-shadow:0 3px 12px rgba(39,56,31,.06);
-  }
-  .time{
-    font-family:"Cormorant Garamond";font-weight:600;
-    font-size:19px;color:var(--gold);letter-spacing:.5px;line-height:1;
-  }
+  .card{position:relative;flex:1;background:linear-gradient(180deg,#fff,var(--paper));border:1px solid rgba(92,113,68,.18);border-radius:14px;padding:11px 15px;box-shadow:0 3px 12px rgba(39,56,31,.06);transition:.25s;}
+  .time{font-family:"Cormorant Garamond";font-weight:600;font-size:19px;color:var(--gold);letter-spacing:.5px;line-height:1;}
   .act{font-family:"Noto Serif TC";font-weight:700;font-size:17px;color:var(--forest);margin-top:3px;}
   .loc{font-size:12.5px;color:var(--ink-soft);margin-top:1px;}
+  .card.now{border-color:var(--gold);box-shadow:0 0 0 2px var(--gold-light),0 8px 20px rgba(169,128,47,.28);background:linear-gradient(180deg,#fffdf5,#fbf3dd);}
+  .card.next{border-color:var(--moss);box-shadow:0 6px 16px rgba(92,113,68,.2);}
+  .card.now::after,.card.next::after{position:absolute;top:-10px;right:12px;font-family:"Noto Sans TC";font-size:10.5px;font-weight:700;letter-spacing:.5px;padding:3px 10px;border-radius:20px;color:#fff;}
+  .card.now::after{content:"● 進行中";background:linear-gradient(135deg,var(--gold),#86641f);animation:pulse 1.6s infinite;}
+  .card.next::after{content:"即將開始";background:linear-gradient(135deg,var(--moss),var(--forest-2));}
+  @keyframes pulse{0%,100%{opacity:1}50%{opacity:.55}}
+  .icon.act-now{box-shadow:0 0 0 3px rgba(197,160,80,.45),0 4px 10px rgba(39,56,31,.3);}
 
-  /* ====== SECTION ====== */
+  /* SECTION */
   .section{padding:8px 20px 4px;}
-  .s-head{
-    display:flex;align-items:center;gap:10px;
-    margin:18px 0 12px;
-  }
+  .s-head{display:flex;align-items:center;gap:10px;margin:18px 0 12px;}
   .s-head .bar{width:5px;height:20px;border-radius:3px;background:linear-gradient(var(--gold-light),var(--gold));}
   .s-head h2{font-family:"Noto Serif TC";font-weight:700;font-size:18px;color:var(--forest);letter-spacing:1px;}
+  .ck-count{margin-left:auto;font-family:"Cormorant Garamond";font-weight:600;font-size:17px;color:var(--gold);}
 
-  .rooms{display:flex;gap:12px;}
-  .room{
-    flex:1;text-align:center;
-    background:linear-gradient(160deg,var(--forest-2),var(--forest));
-    color:var(--cream);border-radius:16px;padding:18px 10px;
-    box-shadow:0 8px 18px rgba(39,56,31,.25);
-    position:relative;overflow:hidden;
-  }
-  .room::before{content:"";position:absolute;inset:0;background:radial-gradient(80% 60% at 80% 0%,rgba(197,160,80,.25),transparent);}
-  .room .rt{font-family:"Noto Serif TC";font-weight:500;font-size:15px;position:relative;}
-  .room .rp{font-family:"Cormorant Garamond";font-weight:600;font-size:34px;color:var(--gold-light);margin-top:4px;position:relative;}
-  .room .rp span{font-size:18px;vertical-align:super;}
+  /* WEATHER */
+  .wx-row{display:flex;gap:12px;}
+  .wx{flex:1;text-align:center;background:linear-gradient(180deg,#fff,var(--paper));border:1px solid rgba(92,113,68,.18);border-radius:16px;padding:16px 10px;box-shadow:0 3px 12px rgba(39,56,31,.06);}
+  .wx-d{font-family:"Noto Serif TC";font-weight:700;font-size:14px;color:var(--forest);}
+  .wx-i{width:40px;height:40px;stroke:var(--moss);fill:none;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round;margin:8px 0 4px;}
+  .wx-l{font-size:13px;color:var(--ink-soft);}
+  .wx-t{font-family:"Cormorant Garamond";font-weight:600;font-size:26px;color:var(--gold);margin-top:4px;}
+  .wx-t span{font-size:16px;color:var(--ink-soft);}
+  .wx-p{font-size:11.5px;color:var(--moss);margin-top:2px;}
+  .wx-note{font-size:12.5px;color:var(--ink-soft);background:var(--paper-2);border-radius:12px;padding:10px 14px;margin-bottom:10px;line-height:1.6;}
+  .wx-loading{font-size:13px;color:var(--ink-soft);text-align:center;padding:14px;}
+  .wx-now .wx-d{color:var(--gold);}
 
-  .hotel{
-    display:flex;align-items:center;gap:14px;
-    background:linear-gradient(180deg,#fff,var(--paper));
-    border:1px solid rgba(92,113,68,.18);
-    border-radius:16px;padding:16px;
-    text-decoration:none;color:inherit;
-    box-shadow:0 3px 12px rgba(39,56,31,.06);
-    transition:.2s;
-  }
+  /* SPOT */
+  .spot{background:linear-gradient(180deg,#fff,var(--paper));border:1px solid rgba(92,113,68,.18);border-radius:18px;padding:18px;box-shadow:0 4px 14px rgba(39,56,31,.07);}
+  .spot-title{font-family:"Noto Serif TC";font-weight:900;font-size:21px;color:var(--forest);}
+  .spot-sub{font-size:12px;color:var(--gold);font-weight:700;letter-spacing:.5px;margin-top:2px;}
+  .spot-desc{font-size:13.5px;color:var(--ink-soft);line-height:1.78;margin:12px 0;}
+  .chips{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:14px;}
+  .chips span{font-size:11.5px;font-weight:500;color:var(--moss);background:rgba(138,155,110,.16);border:1px solid rgba(92,113,68,.25);padding:4px 11px;border-radius:20px;}
+  .spot-info{display:grid;gap:7px;font-size:13px;color:var(--ink);border-top:1px dashed var(--line);padding-top:13px;}
+  .spot-info .k{display:inline-block;width:42px;color:var(--moss);font-weight:700;}
+  .spot-tip{font-size:12px;color:#86641f;background:rgba(197,160,80,.15);border-radius:10px;padding:9px 12px;margin-top:12px;line-height:1.65;}
+  .spot-btns{display:flex;gap:10px;margin-top:14px;}
+  .sbtn{flex:1;text-align:center;text-decoration:none;font-weight:700;font-size:14px;padding:12px;border-radius:12px;background:var(--paper-2);color:var(--forest);transition:.2s;}
+  .sbtn:active{transform:scale(.98);}
+  .sbtn.primary{background:linear-gradient(150deg,var(--moss),var(--forest-2));color:#fff;}
+
+  /* CHECKLIST */
+  .checklist{display:grid;gap:8px;}
+  .ck{display:flex;align-items:center;gap:12px;cursor:pointer;background:linear-gradient(180deg,#fff,var(--paper));border:1px solid rgba(92,113,68,.18);border-radius:12px;padding:11px 14px;box-shadow:0 2px 8px rgba(39,56,31,.04);transition:.15s;}
+  .ck:active{transform:scale(.99);}
+  .ck input{display:none;}
+  .ck .box{width:22px;height:22px;flex-shrink:0;border-radius:7px;border:2px solid var(--sage);display:flex;align-items:center;justify-content:center;transition:.2s;}
+  .ck .box svg{width:13px;height:13px;stroke:#fff;fill:none;stroke-width:3;stroke-linecap:round;stroke-linejoin:round;opacity:0;transition:.2s;}
+  .ck.done .box{background:linear-gradient(135deg,var(--moss),var(--forest-2));border-color:var(--forest-2);}
+  .ck.done .box svg{opacity:1;}
+  .ck .txt{font-size:15px;color:var(--ink);font-weight:500;transition:.2s;}
+  .ck.done .txt{color:var(--ink-soft);text-decoration:line-through;text-decoration-color:var(--sage);}
+
+  /* HOTEL */
+  .hotel{display:flex;align-items:center;gap:14px;background:linear-gradient(180deg,#fff,var(--paper));border:1px solid rgba(92,113,68,.18);border-radius:16px;padding:16px;text-decoration:none;color:inherit;box-shadow:0 3px 12px rgba(39,56,31,.06);transition:.2s;}
   .hotel:active{transform:scale(.99);}
-  .hotel .pin{
-    width:46px;height:46px;flex-shrink:0;border-radius:13px;
-    background:linear-gradient(150deg,var(--moss),var(--forest-2));
-    display:flex;align-items:center;justify-content:center;
-  }
+  .hotel .pin{width:46px;height:46px;flex-shrink:0;border-radius:13px;background:linear-gradient(150deg,var(--moss),var(--forest-2));display:flex;align-items:center;justify-content:center;}
   .hotel .pin svg{width:22px;height:22px;stroke:var(--cream);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;}
   .hotel .ht{font-family:"Noto Serif TC";font-weight:700;font-size:16px;color:var(--forest);}
   .hotel .hs{font-size:12px;color:var(--ink-soft);margin-top:2px;}
   .hotel .go{margin-left:auto;color:var(--gold);font-size:13px;font-weight:700;white-space:nowrap;}
 
-  .quote{
-    text-align:center;margin:24px 8px 6px;
-    font-family:"Noto Serif TC";font-weight:500;
-    color:var(--moss);font-size:16px;line-height:1.9;letter-spacing:2px;
-  }
+  .quote{text-align:center;margin:24px 8px 6px;font-family:"Noto Serif TC";font-weight:500;color:var(--moss);font-size:16px;line-height:1.9;letter-spacing:2px;}
   .quote .em{color:var(--gold);}
 
-  /* ====== CONTACTS ====== */
+  /* CONTACTS */
   .contacts{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
-  .ct{
-    background:linear-gradient(180deg,#fff,var(--paper));
-    border:1px solid rgba(92,113,68,.18);
-    border-radius:14px;padding:13px;text-decoration:none;color:inherit;
-    display:block;box-shadow:0 3px 10px rgba(39,56,31,.05);
-    transition:.2s;
-  }
+  .ct{background:linear-gradient(180deg,#fff,var(--paper));border:1px solid rgba(92,113,68,.18);border-radius:14px;padding:13px;text-decoration:none;color:inherit;display:block;box-shadow:0 3px 10px rgba(39,56,31,.05);transition:.2s;}
   .ct:active{transform:scale(.98);background:var(--paper-2);}
   .ct .role{font-size:11px;color:var(--moss);font-weight:700;letter-spacing:.5px;}
   .ct .nm{font-family:"Noto Serif TC";font-weight:700;font-size:18px;color:var(--forest);margin:2px 0 4px;}
   .ct .ph{display:flex;align-items:center;gap:5px;color:var(--gold);font-family:"Cormorant Garamond";font-weight:600;font-size:16px;}
   .ct .ph svg{width:13px;height:13px;stroke:var(--gold);fill:none;stroke-width:2;}
 
-  /* ====== FOOTER ====== */
-  footer{
-    margin-top:24px;
-    background:linear-gradient(var(--forest-2),var(--forest));
-    padding:24px 20px 30px;text-align:center;
-    position:relative;
-  }
-  footer .slo{
-    color:var(--cream);font-family:"Noto Serif TC";font-weight:500;
-    font-size:15px;letter-spacing:3px;line-height:1.8;
-  }
+  /* FOOTER */
+  footer{margin-top:24px;background:linear-gradient(var(--forest-2),var(--forest));padding:24px 20px 30px;text-align:center;position:relative;}
+  footer .slo{color:var(--cream);font-family:"Noto Serif TC";font-weight:500;font-size:15px;letter-spacing:3px;line-height:1.8;}
   footer .slo .g{color:var(--gold-light);}
-  footer .yr{
-    margin-top:12px;color:rgba(243,236,217,.5);
-    font-family:"Cormorant Garamond";font-size:12px;letter-spacing:3px;
-  }
+  footer .yr{margin-top:12px;color:rgba(243,236,217,.5);font-family:"Cormorant Garamond";font-size:12px;letter-spacing:3px;}
+  footer .copyr{margin-top:16px;padding-top:14px;border-top:1px solid rgba(243,236,217,.12);color:rgba(243,236,217,.42);font-size:10.5px;letter-spacing:.5px;line-height:1.8;}
+  .toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%) translateY(20px);background:var(--forest);color:var(--cream);font-size:13px;font-weight:500;padding:11px 20px;border-radius:30px;box-shadow:0 8px 24px rgba(0,0,0,.3);opacity:0;pointer-events:none;transition:.3s;z-index:99;max-width:90%;text-align:center;}
+  .toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
 </style>
 </head>
 <body>
 <div class="wrap">
 
-  <!-- HERO -->
   <header class="hero">
     <svg class="leaf l1" viewBox="0 0 100 100"><path fill="currentColor" d="M50 5C30 25 10 40 15 70c2 12 12 22 25 24 0-30 5-55 10-89z"/></svg>
     <svg class="leaf l2" viewBox="0 0 100 100"><path fill="currentColor" d="M50 5C30 25 10 40 15 70c2 12 12 22 25 24 0-30 5-55 10-89z"/></svg>
-
-    <div class="org">
-      <span>龍井國際青年商會</span>
-      <span class="dot"></span>
-      <span class="ji">JCI</span>
-      <span class="dot"></span>
-      <span>30<sup>th</sup></span>
-    </div>
-
+    <div class="org"><span>龍井國際青年商會</span><span class="dot"></span><span class="ji">JCI</span><span class="dot"></span><span>30<sup>th</sup></span></div>
     <div class="eyebrow">2026 TRAVEL</div>
     <h1>鳳龍聯合月例會<span class="sub">暨青商家庭旅遊</span></h1>
-
     <div class="ribbon">8/1 <small>(六)</small> – 8/2 <small>(日)</small></div>
+    <div class="countdown" id="countdown"></div>
+    <button id="calBtn" class="calbtn"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>將全部行程加入手機行事曆</button>
   </header>
 
-  <!-- TABS -->
   <nav class="tabs">
     <button class="tab on" data-day="1"><span class="d">DAY 01</span>8/1 週六</button>
     <button class="tab" data-day="2"><span class="d">DAY 02</span>8/2 週日</button>
   </nav>
 
-  <!-- DAY 1 -->
   <section class="panel on" data-day="1">
     <div class="tl">
       <div class="item">
         <div class="icon"><svg viewBox="0 0 24 24"><path d="M2 4v16"/><path d="M2 8h18a2 2 0 0 1 2 2v10"/><path d="M2 17h20"/><path d="M6 8v3"/></svg></div>
-        <div class="card"><div class="time">15:00</div><div class="act">承萬尊爵酒店</div><div class="loc">飯店報到</div></div>
+        <div class="card" data-dt="2026-08-01T15:00" data-end="2026-08-01T16:30"><div class="time">15:00</div><div class="act">承萬尊爵酒店</div><div class="loc">飯店報到</div></div>
       </div>
       <div class="item">
         <div class="icon"><svg viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
-        <div class="card"><div class="time">16:30</div><div class="act">鳳龍聯合月例會</div></div>
+        <div class="card" data-dt="2026-08-01T16:30" data-end="2026-08-01T18:00"><div class="time">16:30</div><div class="act">鳳龍聯合月例會</div></div>
       </div>
       <div class="item">
         <div class="icon"><svg viewBox="0 0 24 24"><path d="M3 2v7c0 1.1.9 2 2 2a2 2 0 0 0 2-2V2"/><path d="M7 2v20"/><path d="M21 15V2a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3Zm0 0v7"/></svg></div>
-        <div class="card"><div class="time">18:00</div><div class="act">晚餐</div><div class="loc">承萬尊爵酒店</div></div>
+        <div class="card" data-dt="2026-08-01T18:00" data-end="2026-08-01T20:00"><div class="time">18:00</div><div class="act">晚餐</div><div class="loc">承萬尊爵酒店</div></div>
       </div>
       <div class="item">
         <div class="icon"><svg viewBox="0 0 24 24"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg></div>
-        <div class="card"><div class="time">20:00</div><div class="act">二次會</div><div class="loc">承萬大包廂</div></div>
+        <div class="card" data-dt="2026-08-01T20:00" data-end="2026-08-01T21:30"><div class="time">20:00</div><div class="act">二次會</div><div class="loc">承萬大包廂</div></div>
       </div>
     </div>
   </section>
 
-  <!-- DAY 2 -->
   <section class="panel" data-day="2">
     <div class="tl">
       <div class="item">
         <div class="icon"><svg viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg></div>
-        <div class="card"><div class="time">10:30</div><div class="act">退房</div></div>
+        <div class="card" data-dt="2026-08-02T10:30" data-end="2026-08-02T10:40"><div class="time">10:30</div><div class="act">退房</div></div>
       </div>
       <div class="item">
         <div class="icon"><svg viewBox="0 0 24 24"><path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z"/><circle cx="12" cy="13" r="3"/></svg></div>
-        <div class="card"><div class="time">10:40</div><div class="act">鳳龍家人大合照</div></div>
+        <div class="card" data-dt="2026-08-02T10:40" data-end="2026-08-02T11:00"><div class="time">10:40</div><div class="act">鳳龍家人大合照</div></div>
       </div>
       <div class="item">
         <div class="icon"><svg viewBox="0 0 24 24"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"/><path d="M2 21c0-3 1.85-5.36 5.08-6"/></svg></div>
-        <div class="card"><div class="time">11:00</div><div class="act">台一生態休閒農場</div></div>
+        <div class="card" data-dt="2026-08-02T11:00" data-end="2026-08-02T12:00"><div class="time">11:00</div><div class="act">台一生態休閒農場</div></div>
       </div>
       <div class="item">
         <div class="icon"><svg viewBox="0 0 24 24"><path d="M3 2v7c0 1.1.9 2 2 2a2 2 0 0 0 2-2V2"/><path d="M7 2v20"/><path d="M21 15V2a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3Zm0 0v7"/></svg></div>
-        <div class="card"><div class="time">12:00</div><div class="act">中餐</div><div class="loc">台一農場用餐</div></div>
+        <div class="card" data-dt="2026-08-02T12:00" data-end="2026-08-02T13:30"><div class="time">12:00</div><div class="act">中餐</div><div class="loc">台一農場用餐</div></div>
       </div>
     </div>
   </section>
 
-  <!-- ROOMS -->
   <section class="section">
-    <div class="s-head"><span class="bar"></span><h2>飯店房型</h2></div>
-    <div class="rooms">
-      <div class="room"><div class="rt">二人房</div><div class="rp"><span>$</span>5,300</div></div>
-      <div class="room"><div class="rt">四人房</div><div class="rp"><span>$</span>6,500</div></div>
+    <div class="s-head"><span class="bar"></span><h2>活動天氣</h2></div>
+    <div id="weather"><div class="wx-loading">載入天氣中…</div></div>
+  </section>
+
+  <section class="section">
+    <div class="s-head"><span class="bar"></span><h2>景點介紹</h2></div>
+    <div class="spot">
+      <div class="spot-title">台一生態休閒農場</div>
+      <div class="spot-sub">楓樺台一渡假村 · 埔里</div>
+      <p class="spot-desc">佔地約四萬坪的花卉主題生態農場，園內有招牌的水上愛心落羽松、彩虹傘、花神廟，以及亞洲具規模的蝴蝶與甲蟲生態館、雨林風情館和親子戲水區。四季花景各有不同，很適合家庭與親子悠閒漫遊、拍照留念。</p>
+      <div class="chips"><span>花卉造景</span><span>水上愛心湖</span><span>蝴蝶生態館</span><span>親子戲水區</span><span>花藝 DIY</span></div>
+      <div class="spot-info">
+        <div><span class="k">地址</span>南投縣埔里鎮中山路一段176號</div>
+        <div><span class="k">電話</span>049-299-7848</div>
+        <div><span class="k">開放</span>08:00 – 17:00</div>
+        <div><span class="k">停車</span>園區提供停車場</div>
+      </div>
+      <div class="spot-tip">小提醒：園區戶外小黑蚊較多，建議攜帶並隨時補擦防蚊液。</div>
+      <div class="spot-btns">
+        <a class="sbtn primary" href="https://www.google.com/maps/search/?api=1&query=%E5%8F%B0%E4%B8%80%E7%94%9F%E6%85%8B%E4%BC%91%E9%96%92%E8%BE%B2%E5%A0%B4" target="_blank" rel="noopener">地圖導航</a>
+        <a class="sbtn" href="tel:0492997848">撥打電話</a>
+      </div>
     </div>
   </section>
 
-  <!-- HOTEL -->
+  <section class="section">
+    <div class="s-head"><span class="bar"></span><h2>攜帶物品清單</h2><span class="ck-count" id="ckCount"></span></div>
+    <div class="checklist" id="checklist"></div>
+  </section>
+
   <section class="section">
     <div class="s-head"><span class="bar"></span><h2>飯店地點</h2></div>
     <a class="hotel" href="https://www.google.com/maps/search/?api=1&query=%E5%9F%94%E9%87%8C%E6%89%BF%E8%90%AC%E5%B0%8A%E7%88%B5%E9%85%92%E5%BA%97" target="_blank" rel="noopener">
       <span class="pin"><svg viewBox="0 0 24 24"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg></span>
-      <span>
-        <span class="ht">承萬尊爵酒店</span>
-        <span class="hs">埔里 · CHENG WAN GRAND HOTEL</span>
-      </span>
+      <span><span class="ht">承萬尊爵酒店</span><span class="hs">埔里 · CHENG WAN GRAND HOTEL</span></span>
       <span class="go">導航 ›</span>
     </a>
   </section>
 
   <div class="quote">親近自然 <span class="em">·</span> 凝聚情誼<br>共創美好回憶！</div>
 
-  <!-- CONTACTS -->
   <section class="section">
     <div class="s-head"><span class="bar"></span><h2>聯絡幹部</h2></div>
     <div class="contacts">
@@ -364,22 +258,166 @@
     </div>
   </section>
 
-  <!-- FOOTER -->
   <footer>
     <div class="slo">同心同行 <span class="g">·</span> 攜手共創<br>鳳龍青商 <span class="g">·</span> 精彩無限</div>
     <div class="yr">LONG JING JUNIOR CHAMBER · 2026</div>
+    <div class="copyr">© 2026 龍井國際青年商會 LONG JING JUNIOR CHAMBER<br>本行程表僅供本會活動使用 · 版權所有</div>
   </footer>
 
 </div>
+<div class="toast" id="toast"></div>
 
 <script>
+  /* ---- day tabs ---- */
   const tabs=document.querySelectorAll('.tab');
   const panels=document.querySelectorAll('.panel');
-  tabs.forEach(t=>t.addEventListener('click',()=>{
-    const d=t.dataset.day;
-    tabs.forEach(x=>x.classList.toggle('on',x===t));
+  function showDay(d){
+    tabs.forEach(x=>x.classList.toggle('on',x.dataset.day===d));
     panels.forEach(p=>p.classList.toggle('on',p.dataset.day===d));
-  }));
+  }
+  tabs.forEach(t=>t.addEventListener('click',()=>showDay(t.dataset.day)));
+
+  /* ---- countdown ---- */
+  (function(){
+    const el=document.getElementById('countdown');
+    const oneDay=86400000;
+    const now=new Date();
+    const today=new Date(now.getFullYear(),now.getMonth(),now.getDate());
+    const startDay=new Date(2026,7,1), endDay=new Date(2026,7,2);
+    const diff=Math.round((startDay-today)/oneDay);
+    if(diff>1) el.innerHTML='距離出發倒數 <b>'+diff+'</b> 天';
+    else if(diff===1) el.innerHTML='明天出發，準備好了嗎？';
+    else if(diff===0) el.innerHTML='今天出發！';
+    else if(today<=endDay) el.innerHTML='旅程進行中 · 一起留下美好回憶';
+    else el.innerHTML='旅程圓滿結束，謝謝大家的參與';
+  })();
+
+  /* ---- now / next highlight ---- */
+  const cards=[...document.querySelectorAll('.card[data-dt]')];
+  function refresh(){
+    const now=new Date();
+    cards.forEach(c=>{c.classList.remove('now','next');const ic=c.parentElement.querySelector('.icon');if(ic)ic.classList.remove('act-now');});
+    let target=null,state='';
+    for(const c of cards){ if(now>=new Date(c.dataset.dt) && now<new Date(c.dataset.end)){target=c;state='now';break;} }
+    if(!target){ for(const c of cards){ if(new Date(c.dataset.dt)>now){target=c;state='next';break;} } }
+    if(target){ target.classList.add(state); const ic=target.parentElement.querySelector('.icon'); if(ic&&state==='now')ic.classList.add('act-now'); }
+    return target;
+  }
+  const firstTarget=refresh();
+  if(firstTarget){const p=firstTarget.closest('.panel');if(p)showDay(p.dataset.day);}
+  setInterval(refresh,60000);
+
+  /* ---- add to calendar (.ics) ---- */
+  const EVENTS=[
+    {t:'承萬尊爵酒店 報到',l:'埔里承萬尊爵酒店',s:'20260801T150000',e:'20260801T163000'},
+    {t:'鳳龍聯合月例會',l:'承萬尊爵酒店',s:'20260801T163000',e:'20260801T180000'},
+    {t:'晚餐',l:'承萬尊爵酒店',s:'20260801T180000',e:'20260801T200000'},
+    {t:'二次會',l:'承萬大包廂',s:'20260801T200000',e:'20260801T213000'},
+    {t:'退房',l:'承萬尊爵酒店',s:'20260802T103000',e:'20260802T104000'},
+    {t:'鳳龍家人大合照',l:'承萬尊爵酒店',s:'20260802T104000',e:'20260802T110000'},
+    {t:'台一生態休閒農場',l:'南投縣埔里鎮中山路一段176號',s:'20260802T110000',e:'20260802T120000'},
+    {t:'中餐',l:'台一農場',s:'20260802T120000',e:'20260802T133000'}
+  ];
+  function buildICS(){
+    const p=n=>String(n).padStart(2,'0');
+    const d=new Date();
+    const stamp=d.getUTCFullYear()+p(d.getUTCMonth()+1)+p(d.getUTCDate())+'T'+p(d.getUTCHours())+p(d.getUTCMinutes())+p(d.getUTCSeconds())+'Z';
+    let s='BEGIN:VCALENDAR\r\nVERSION:2.0\r\nPRODID:-//LongJing JCI//Trip2026//ZH\r\nCALSCALE:GREGORIAN\r\nMETHOD:PUBLISH\r\n';
+    EVENTS.forEach((ev,i)=>{
+      s+='BEGIN:VEVENT\r\nUID:ljjci2026-'+i+'@longjing\r\nDTSTAMP:'+stamp+'\r\nDTSTART:'+ev.s+'\r\nDTEND:'+ev.e+'\r\nSUMMARY:'+ev.t+'\r\nLOCATION:'+ev.l+'\r\nBEGIN:VALARM\r\nACTION:DISPLAY\r\nDESCRIPTION:'+ev.t+'\r\nTRIGGER:-PT30M\r\nEND:VALARM\r\nEND:VEVENT\r\n';
+    });
+    return s+'END:VCALENDAR\r\n';
+  }
+  function toast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2600);}
+  document.getElementById('calBtn').addEventListener('click',()=>{
+    try{
+      const blob=new Blob([buildICS()],{type:'text/calendar;charset=utf-8'});
+      const url=URL.createObjectURL(blob);
+      const a=document.createElement('a');
+      a.href=url;a.download='鳳龍家庭旅遊行程.ics';
+      document.body.appendChild(a);a.click();
+      setTimeout(()=>{URL.revokeObjectURL(url);a.remove();},600);
+      toast('已產生行事曆檔，開啟後即可加入並收到提醒');
+    }catch(e){toast('您的瀏覽器不支援下載，請改用 Chrome / Safari 開啟');}
+  });
+
+  /* ---- weather (Open-Meteo) ---- */
+  const LAT=23.965, LON=120.968;
+  const weatherEl=document.getElementById('weather');
+  function wmo(code){
+    if(code===0) return {l:'晴朗',t:'sun'};
+    if(code===1||code===2) return {l:'晴時多雲',t:'partly'};
+    if(code===3) return {l:'陰天',t:'cloud'};
+    if(code===45||code===48) return {l:'有霧',t:'fog'};
+    if(code>=51&&code<=67) return {l:'降雨',t:'rain'};
+    if(code>=71&&code<=86) return {l:'雨雪',t:'rain'};
+    if(code>=80&&code<=82) return {l:'陣雨',t:'rain'};
+    if(code>=95) return {l:'雷陣雨',t:'storm'};
+    return {l:'多雲',t:'partly'};
+  }
+  function wIcon(t){
+    const I={
+      sun:'<circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.2 4.2l1.4 1.4M18.4 18.4l1.4 1.4M1 12h2M21 12h2M4.2 19.8l1.4-1.4M18.4 5.6l1.4-1.4"/>',
+      partly:'<path d="M8 5a3.5 3.5 0 1 1 3 5.3"/><path d="M4 17.5a4 4 0 0 1 4-4 5 5 0 0 1 9.5 1.5A3.2 3.2 0 0 1 17 21H7a3 3 0 0 1-3-3.5z"/>',
+      cloud:'<path d="M6 18a4 4 0 0 1 1-7.9A5 5 0 0 1 17 11a3.5 3.5 0 0 1 0 7H7z"/>',
+      fog:'<path d="M6 9a5 5 0 0 1 10-1 3.5 3.5 0 0 1 .5 7H8"/><path d="M3 17h12M5 21h11"/>',
+      rain:'<path d="M6 14a4 4 0 0 1 1-7.9A5 5 0 0 1 17 7a3.5 3.5 0 0 1 0 7H7z"/><path d="M8 18l-1 2M12 18l-1 2M16 18l-1 2"/>',
+      storm:'<path d="M6 13a4 4 0 0 1 1-7.9A5 5 0 0 1 17 6a3.5 3.5 0 0 1 0 7H7z"/><path d="M12 13l-2.5 4.5H12L10 22"/>'
+    };
+    return I[t]||I.partly;
+  }
+  function wxCard(label,w,hi,lo,pop){
+    return '<div class="wx"><div class="wx-d">'+label+'</div>'+
+      '<svg class="wx-i" viewBox="0 0 24 24">'+wIcon(w.t)+'</svg>'+
+      '<div class="wx-l">'+w.l+'</div>'+
+      '<div class="wx-t">'+Math.round(hi)+'°<span> / '+Math.round(lo)+'°</span></div>'+
+      (pop!=null?'<div class="wx-p">降雨 '+pop+'%</div>':'')+'</div>';
+  }
+  function renderForecast(d){
+    const labels=['8/1 週六','8/2 週日'];
+    let html='';
+    d.time.forEach((t,i)=>{ const w=wmo(d.weather_code[i]); html+=wxCard(labels[i]||t,w,d.temperature_2m_max[i],d.temperature_2m_min[i],d.precipitation_probability_max[i]); });
+    weatherEl.innerHTML='<div class="wx-row">'+html+'</div>';
+  }
+  async function loadCurrent(){
+    try{
+      const r=await fetch('https://api.open-meteo.com/v1/forecast?latitude='+LAT+'&longitude='+LON+'&current=temperature_2m,weather_code&timezone=Asia%2FTaipei');
+      const j=await r.json();
+      const w=wmo(j.current.weather_code);
+      weatherEl.innerHTML='<div class="wx-note">活動日天氣預報約於出發前兩週開放，屆時會自動顯示 8/1、8/2 的氣溫與降雨機率。</div>'+
+        '<div class="wx-row"><div class="wx wx-now"><div class="wx-d">埔里目前</div><svg class="wx-i" viewBox="0 0 24 24">'+wIcon(w.t)+'</svg><div class="wx-l">'+w.l+'</div><div class="wx-t">'+Math.round(j.current.temperature_2m)+'°</div></div></div>';
+    }catch(e){ weatherEl.innerHTML='<div class="wx-note">目前無法取得天氣資訊，請確認網路連線後重新整理。</div>'; }
+  }
+  async function loadWeather(){
+    const url='https://api.open-meteo.com/v1/forecast?latitude='+LAT+'&longitude='+LON+'&daily=weather_code,temperature_2m_max,temperature_2m_min,precipitation_probability_max&timezone=Asia%2FTaipei&start_date=2026-08-01&end_date=2026-08-02';
+    try{
+      const r=await fetch(url);
+      const j=await r.json();
+      if(j.daily && j.daily.time && j.daily.time.length && j.daily.temperature_2m_max[0]!=null) renderForecast(j.daily);
+      else await loadCurrent();
+    }catch(e){ await loadCurrent(); }
+  }
+  loadWeather();
+
+  /* ---- packing checklist ---- */
+  const ITEMS=['身分證 / 健保卡','換洗衣物','盥洗用品','防曬乳','防蚊液','輕便雨衣 / 雨傘','帽子 / 太陽眼鏡','個人常備藥','充電器 / 行動電源','拖鞋','環保杯 / 水壺','相機','孩童用品（如需要）'];
+  const KEY='ljjci-pack-2026';
+  let state={};
+  try{state=JSON.parse(localStorage.getItem(KEY)||'{}');}catch(e){state={};}
+  function save(){try{localStorage.setItem(KEY,JSON.stringify(state));}catch(e){}}
+  const wrap=document.getElementById('checklist');
+  const countEl=document.getElementById('ckCount');
+  function updateCount(){const done=ITEMS.filter((_,i)=>state[i]).length;countEl.textContent=done+' / '+ITEMS.length;}
+  ITEMS.forEach((it,i)=>{
+    const row=document.createElement('label');
+    row.className='ck'+(state[i]?' done':'');
+    row.innerHTML='<input type="checkbox"'+(state[i]?' checked':'')+'><span class="box"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span><span class="txt"></span>';
+    row.querySelector('.txt').textContent=it;
+    const cb=row.querySelector('input');
+    cb.addEventListener('change',()=>{state[i]=cb.checked;row.classList.toggle('done',cb.checked);save();updateCount();});
+    wrap.appendChild(row);
+  });
+  updateCount();
 </script>
 </body>
 </html>
