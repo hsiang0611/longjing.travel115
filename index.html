@@ -127,6 +127,14 @@
   .hotel .go{margin-left:auto;color:var(--gold);font-size:13px;font-weight:700;white-space:nowrap;}
 
   /* ROOMS */
+  .room-view{display:flex;gap:6px;background:var(--paper-2);padding:4px;border-radius:12px;margin-bottom:11px;}
+  .rv{flex:1;border:none;cursor:pointer;background:transparent;color:var(--ink-soft);font-family:"Noto Sans TC";font-weight:700;font-size:13.5px;padding:9px 6px;border-radius:9px;transition:.2s;}
+  .rv.on{background:#fff;color:var(--forest);box-shadow:0 2px 6px rgba(39,56,31,.12);}
+  .rgroup{display:flex;align-items:center;gap:8px;margin-top:6px;}
+  .rgroup:first-child{margin-top:0;}
+  .rgroup .gt{font-family:"Noto Serif TC";font-weight:700;font-size:14px;color:var(--moss);white-space:nowrap;}
+  .rgroup .gc{font-size:11px;color:#fff;background:var(--sage);padding:1px 8px;border-radius:20px;font-weight:700;}
+  .rgroup .gl{flex:1;height:1px;background:var(--line);}
   .room-note{font-size:12px;color:#86641f;background:rgba(197,160,80,.15);border-radius:10px;padding:9px 12px;margin-bottom:11px;line-height:1.6;}
   .room-search{position:relative;margin-bottom:11px;}
   .room-search input{width:100%;font-family:inherit;font-size:14px;color:var(--ink);background:#fff;border:1px solid rgba(92,113,68,.25);border-radius:12px;padding:11px 14px 11px 40px;outline:none;transition:.2s;}
@@ -136,14 +144,14 @@
   .rlist{display:grid;gap:10px;}
   .rcard{display:flex;align-items:center;gap:13px;background:linear-gradient(180deg,#fff,var(--paper));border:1px solid rgba(92,113,68,.18);border-radius:14px;padding:13px 15px;box-shadow:0 3px 10px rgba(39,56,31,.05);transition:.2s;}
   .rcard.hit{border-color:var(--gold);box-shadow:0 0 0 2px var(--gold-light),0 6px 16px rgba(169,128,47,.22);}
-  .rno{flex-shrink:0;min-width:56px;text-align:center;}
+  .rno{flex-shrink:0;min-width:64px;text-align:center;}
   .rno .num{font-family:"Cormorant Garamond";font-weight:600;font-size:25px;color:var(--gold);line-height:1;}
   .rno .pend{font-family:"Noto Serif TC";font-weight:700;font-size:14px;color:var(--ink-soft);}
-  .rno .tp{display:inline-block;margin-top:5px;font-size:10.5px;font-weight:700;color:#fff;background:linear-gradient(135deg,var(--moss),var(--forest-2));padding:2px 9px;border-radius:20px;white-space:nowrap;}
   .rdivider{align-self:stretch;border-left:1px dashed var(--line);}
-  .rguests{flex:1;display:flex;flex-wrap:wrap;gap:6px;}
-  .rguests span{font-size:13px;color:var(--forest);background:rgba(138,155,110,.16);border:1px solid rgba(92,113,68,.2);padding:3px 10px;border-radius:8px;}
-  .rguests span.mark{background:var(--gold);color:#fff;border-color:var(--gold);}
+  .rmain{flex:1;min-width:0;}
+  .rname{font-family:"Noto Serif TC";font-weight:700;font-size:16px;color:var(--forest);display:flex;flex-wrap:wrap;gap:6px;}
+  .rname span.mark{background:var(--gold);color:#fff;padding:0 7px;border-radius:7px;}
+  .rtype{font-size:12px;color:var(--ink-soft);margin-top:3px;}
   .rempty{font-size:13px;color:var(--ink-soft);background:var(--paper-2);border-radius:12px;padding:14px;text-align:center;line-height:1.7;}
   .quote{text-align:center;margin:24px 8px 6px;font-family:"Noto Serif TC";font-weight:500;color:var(--moss);font-size:16px;line-height:1.9;letter-spacing:2px;}
   .quote .em{color:var(--gold);}
@@ -273,6 +281,11 @@
 
   <section class="section">
     <div class="s-head"><span class="bar"></span><h2>預留房號</h2></div>
+    <div class="room-view" id="roomView">
+      <button class="rv on" data-view="no">依房號</button>
+      <button class="rv" data-view="type">依房型</button>
+      <button class="rv" data-view="floor">依樓層</button>
+    </div>
     <div class="room-search">
       <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4-4"/></svg>
       <input id="roomSearch" type="text" placeholder="輸入姓名或房號，快速找到你的房間" autocomplete="off">
@@ -449,46 +462,108 @@
   loadWeather();
 
   /* ---- reserved rooms ---- */
-  /* === 房號分配名單：請替換為實際資料 ===
-     no    : 房號，未定時填 '' 會顯示「待公布」
-     type  : 房型（二人房 / 四人房）
-     guests: 入住人員（建議用家庭稱呼或代號，避免公開全名）          */
-  const ROOMS_NOTE='以下為版型範例，正式名單確認後更新。';   /* 名單確定後可改為 '' 隱藏此提示 */
+  /* === 房號分配名單 === no:房號 / type:房型 / guests:入住人員 */
+  const ROOMS_NOTE='';   /* 需要顯示提示時可填文字 */
   const ROOMS=[
-    {no:'', type:'二人房', guests:['範例 · 成員 A','範例 · 眷屬']},
-    {no:'', type:'四人房', guests:['範例 · 成員 B','範例 · 眷屬','範例 · 子女','範例 · 子女']},
-    {no:'', type:'二人房', guests:['範例 · 成員 C','範例 · 成員 D']}
+    {no:'608', type:'雙人房（兩小床）', guests:['劉啟宏']},
+    {no:'609', type:'雙人房（兩小床）', guests:['陳旻暐']},
+    {no:'807', type:'雙人房（兩小床）', guests:['羅宏志']},
+    {no:'808', type:'雙人房（兩小床）', guests:['湯星光']},
+    {no:'805', type:'雙人房（一大床）', guests:['朱伯裕']},
+    {no:'705', type:'雙人房（一大床）', guests:['李忠諺']},
+    {no:'707', type:'雙人房（一大床）', guests:['湯淙閔']},
+    {no:'906', type:'雙人房（一大床）', guests:['黃琬婷']},
+    {no:'905', type:'雙人房（一大床）', guests:['鐘一仁']},
+    {no:'708', type:'雙人房（一大床）', guests:['許柏漢']},
+    {no:'709', type:'雙人房（一大床）', guests:['藍世裕']},
+    {no:'706', type:'雙人房（一大床）', guests:['何威']},
+    {no:'511', type:'三人房', guests:['張展源']},
+    {no:'1012', type:'四人房', guests:['吳俊輝']},
+    {no:'1013', type:'四人房', guests:['林明毅']},
+    {no:'803', type:'四人房', guests:['陳柏蒼']},
+    {no:'903', type:'四人房', guests:['江湘鈺']},
+    {no:'512', type:'四人房', guests:['蔡明翰']},
+    {no:'507', type:'雙人房（兩小床）', guests:['紀昱全']},
+    {no:'712', type:'四人房', guests:['陳厚任']},
+    {no:'612', type:'四人房', guests:['黃真益']},
+    {no:'912', type:'四人房', guests:['施景棟']},
+    {no:'508', type:'雙人房（兩小床）', guests:['劉泊賢']},
+    {no:'505', type:'雙人房（一大床）', guests:['趙宏逸']},
+    {no:'703', type:'四人房', guests:['陳彥良']},
+    {no:'713', type:'四人房', guests:['顏子墉']},
+    {no:'509', type:'雙人房（兩小床）', guests:['陳智佑']},
+    {no:'516', type:'雙人房（一大床）', guests:['林憬其']},
+    {no:'613', type:'四人房', guests:['楊詠丞']},
+    {no:'603', type:'四人房', guests:['陳柏羽']},
+    {no:'813', type:'四人房', guests:['劉明潭']},
+    {no:'913', type:'四人房', guests:['林義翔']},
+    {no:'812', type:'四人房', guests:['施議仁']},
+    {no:'503', type:'四人房', guests:['林俊亦']},
+    {no:'506', type:'雙人房（一大床）', guests:['林俊亦']},
+    {no:'606', type:'雙人房（一大床）', guests:['紀耘承']},
+    {no:'605', type:'雙人房（一大床）', guests:['陳龍封']},
+    {no:'607', type:'雙人房（兩小床）', guests:['郭建麟']}
   ];
   (function(){
     const listEl=document.getElementById('rlist');
     const sumEl=document.getElementById('roomSummary');
     const searchEl=document.getElementById('roomSearch');
+    const viewEl=document.getElementById('roomView');
     function esc(s){return String(s).replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));}
     if(!ROOMS.length){
       listEl.innerHTML='<div class="rempty">房號將於入住前公布，敬請留意群組通知。</div>';
-      sumEl.style.display='none'; searchEl.parentElement.style.display='none'; return;
+      sumEl.style.display='none'; searchEl.parentElement.style.display='none'; if(viewEl)viewEl.style.display='none'; return;
     }
-    const totalGuests=ROOMS.reduce((n,r)=>n+r.guests.length,0);
-    sumEl.innerHTML=(ROOMS_NOTE?'<div class="room-note">'+esc(ROOMS_NOTE)+'</div>':'')+'共 '+ROOMS.length+' 間 · '+totalGuests+' 人';
+    ROOMS.sort((a,b)=>((parseInt(a.no,10)||99999)-(parseInt(b.no,10)||99999)));
+    const TYPE_ORDER=['雙人房（一大床）','雙人房（兩小床）','三人房','四人房'];
+    let view='no';
+    function setSummary(){ sumEl.innerHTML=(ROOMS_NOTE?'<div class="room-note">'+esc(ROOMS_NOTE)+'</div>':'')+'共 '+ROOMS.length+' 間房 · '+(view==='type'?'依房型分類':view==='floor'?'依樓層分類':'依房號排序'); }
+    function matchRoom(r,ql){ return ql && (r.guests.some(g=>g.toLowerCase().includes(ql)) || (r.no&&r.no.toLowerCase().includes(ql))); }
+    function cardHTML(r,ql){
+      const match=matchRoom(r,ql);
+      const noHtml=r.no?'<div class="num">'+esc(r.no)+'</div>':'<div class="pend">待公布</div>';
+      const guestsHtml=r.guests.map(g=>{const hit=ql&&g.toLowerCase().includes(ql);return '<span'+(hit?' class="mark"':'')+'>'+esc(g)+'</span>';}).join('');
+      return '<div class="rcard'+(match?' hit':'')+'"><div class="rno">'+noHtml+'</div><div class="rdivider"></div><div class="rmain"><div class="rname">'+guestsHtml+'</div><div class="rtype">'+esc(r.type)+'</div></div></div>';
+    }
     function render(raw){
       const q=(raw||'').trim(), ql=q.toLowerCase();
-      listEl.innerHTML=''; let shown=0;
-      ROOMS.forEach(r=>{
-        const match=ql && (r.guests.some(g=>g.toLowerCase().includes(ql)) || (r.no&&r.no.toLowerCase().includes(ql)));
-        if(ql && !match) return;
-        shown++;
-        const card=document.createElement('div');
-        card.className='rcard'+(match?' hit':'');
-        const noHtml=r.no?'<div class="num">'+esc(r.no)+'</div>':'<div class="pend">待公布</div>';
-        const guestsHtml=r.guests.map(g=>{const hit=ql&&g.toLowerCase().includes(ql);return '<span'+(hit?' class="mark"':'')+'>'+esc(g)+'</span>';}).join('');
-        card.innerHTML='<div class="rno">'+noHtml+'<div class="tp">'+esc(r.type)+'</div></div><div class="rdivider"></div><div class="rguests">'+guestsHtml+'</div>';
-        listEl.appendChild(card);
-      });
-      if(ql && shown===0) listEl.innerHTML='<div class="rempty">查無「'+esc(q)+'」，請確認姓名是否正確，或洽幹部協助。</div>';
+      const visible=ROOMS.filter(r=>!ql || matchRoom(r,ql));
+      if(!visible.length){ listEl.innerHTML='<div class="rempty">查無「'+esc(q)+'」，請確認姓名是否正確，或洽幹部協助。</div>'; return; }
+      let html='';
+      if(view==='type'){
+        const types=TYPE_ORDER.slice();
+        visible.forEach(r=>{ if(types.indexOf(r.type)<0) types.push(r.type); });
+        types.forEach(t=>{
+          const rows=visible.filter(r=>r.type===t);
+          if(!rows.length) return;
+          html+='<div class="rgroup"><span class="gt">'+esc(t)+'</span><span class="gc">'+rows.length+'</span><span class="gl"></span></div>';
+          rows.forEach(r=>{ html+=cardHTML(r,ql); });
+        });
+      }else if(view==='floor'){
+        const floors={};
+        visible.forEach(r=>{ const f=r.no?Math.floor(parseInt(r.no,10)/100):0; (floors[f]=floors[f]||[]).push(r); });
+        Object.keys(floors).map(Number).sort((a,b)=>((a||99)-(b||99))).forEach(f=>{
+          const rows=floors[f];
+          html+='<div class="rgroup"><span class="gt">'+(f?f+' 樓':'待定')+'</span><span class="gc">'+rows.length+'</span><span class="gl"></span></div>';
+          rows.forEach(r=>{ html+=cardHTML(r,ql); });
+        });
+      }else{
+        visible.forEach(r=>{ html+=cardHTML(r,ql); });
+      }
+      listEl.innerHTML=html;
     }
+    if(viewEl){
+      viewEl.querySelectorAll('.rv').forEach(b=>b.addEventListener('click',()=>{
+        view=b.dataset.view;
+        viewEl.querySelectorAll('.rv').forEach(x=>x.classList.toggle('on',x===b));
+        setSummary(); render(searchEl.value);
+      }));
+    }
+    setSummary();
     render('');
     searchEl.addEventListener('input',()=>render(searchEl.value));
   })();
+
 
   /* ---- packing checklist ---- */
   const ITEMS=['身分證 / 健保卡','換洗衣物','盥洗用品','防曬乳','防蚊液','輕便雨衣 / 雨傘','帽子 / 太陽眼鏡','個人常備藥','充電器 / 行動電源','拖鞋','環保杯 / 水壺','相機','孩童用品（如需要）'];
