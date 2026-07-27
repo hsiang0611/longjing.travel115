@@ -1,6 +1,6 @@
 /* 鳳龍青商家庭旅遊 — Service Worker
    離線快取：頁面本身、圖示、Google Fonts
-   天氣 API 一律走網路（離線時頁面會顯示提示） */
+   天氣 API 一律走網路（離線時頁面會顯示提示唷） */
 const CACHE = 'ljjci-trip-2026-v2';
 const CORE = [
   './',
