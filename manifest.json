@@ -1,0 +1,17 @@
+{
+  "name": "2026 鳳龍聯合月例會暨青商家庭旅遊",
+  "short_name": "鳳龍旅遊",
+  "description": "龍井國際青年商會 8/1–8/2 兩天一夜行程、房號查詢與活動資訊",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#faf6ea",
+  "theme_color": "#27381f",
+  "lang": "zh-Hant",
+  "icons": [
+    { "src": "icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}
